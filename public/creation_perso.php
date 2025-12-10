@@ -17,41 +17,88 @@
         @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rokkitt:ital,wght@0,100..900;1,100..900&family=Varela+Round&display=swap");
     </style>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sriracha&family=Style+Script&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Dancing+Script:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Sriracha&family=Style+Script&display=swap');
     </style>
+
     <script src="./assets/scripts/formulaire-stats.js" defer></script>
 </head>
 
-<body class="font-[Roboto]">
+<body class="font-['Berkshire_Swash'] bg-[url('../imgs/decors-jeu-combat-124.gif')] bg-cover">
 
-    <main class="h-screen flex flex-col justify-center items-center gap-16">
-        <h1 class="text-5xl font-bold">Legend Figther</h1>
+
+    <main class="h-screen flex flex-col justify-center items-center gap-12 text-[#000000]">
+        <img src="assets/imgs/Logo.gif" alt="Logo">
+        <h1 class="text-5xl font-bold  text-[#cccfd8] transform-3d [text-shadow:2px_2px_0_#000,4px_4px_0_#444]">Legend Figther</h1>
         <a class="bg-blue-500 top-4 right-24 absolute text-white px-4 py-2 rounded-md" href="../public/perso_selection.php">Choix des heros</a>
 
 
-        <div class="w-1/2 flex flex-col items-center text-center border border-black/30 gap-6 p-5">
+        <div class="flex flex-col items-center text-center border border-black/30 gap-6  shadow-xl shadow-black/30">
 
-            <form enctype="multipart/form-data" class="flex flex-col items-center gap-5" action="../process/creat_charactere.php" method="post">
-                <h2 class="text-3xl">Créez votre hero</h2>
+            <form enctype="multipart/form-data" class="flex flex-col items-center shadow p-4" action="../process/creat_charactere.php" method="post">
+
                 <label for="selectionPhoto" class="block">
 
                     <span class="sr-only">Choose profile photo</span>
-                    <input id="selectionPhoto" name="selectionPhoto" type="file" class="block w-full text-sm font-[Roboto] text-gray-500
-                         file:me-4 file:py-2 file:px-4
-                        file:rounded-lg file:border-0
-                        file:text-sm file:font-semibold
-                        file:bg-blue-600 file:text-white
-                        hover:file:bg-blue-700
-                        file:disabled:opacity-50 file:disabled:pointer-events-none
-                        dark:text-neutral-500
-                        dark:file:bg-blue-500
-                        dark:hover:file:bg-blue-400">
-                </label>
+                    <div class="flex gap-4">
 
-                <label class="text-2xl" for="heroName">Nom du hero</label>
-                <input class=" border border-black/30 py-2 px-3" type="text" name="heroName" id="heroName" placeholder="Nom">
-                
-                <?php include './formulaire_stats.php'; ?>
+                        <!-- Perso 1 -->
+                        <label class="cursor-pointer">
+                            <input
+                                type="radio"
+                                name="idPerso"
+                                value="assets/imgs/perso1.gif"
+                                class="hidden peer">
+                            <img
+                                src="assets/imgs/perso1.gif"
+                                class="h-80 rounded-lg
+                                border-4 border-transparent
+                                transition-all duration-200
+                                hover:scale-105
+                                 peer-checked:border-green-500"
+                                alt="">
+                        </label>
+
+                        <!-- Perso 2 -->
+                        <label class="cursor-pointer">
+                            <input
+                                type="radio"
+                                name="idPerso"
+                                value="assets/imgs/perso2.gif"
+                                class="hidden peer">
+                            <img
+                                src="assets/imgs/perso2.gif"
+                                class="h-80 rounded-lg
+                                border-4 border-transparent
+                                transition-all duration-200
+                                hover:scale-105
+                                peer-checked:border-green-500"
+                                alt="">
+                        </label>
+
+                        <!-- Perso 3 -->
+                        <label class="cursor-pointer">
+                            <input
+                                type="radio"
+                                name="idPerso"
+                                value="assets/imgs/perso3.gif"
+                                class="hidden peer">
+                            <img
+                                src="assets/imgs/perso3.gif"
+                                class="h-80 rounded-lg
+                                border-4 border-transparent
+                                transition-all duration-200
+                                hover:scale-105
+                                peer-checked:border-green-500"
+                                alt="">
+                        </label>
+
+                    </div>
+
+
+
+                    <?php include './formulaire_stats.php'; ?>
+                    <div>
+
             </form>
             <?php if (isset($_GET['hero-already-exists'])) { ?>
 

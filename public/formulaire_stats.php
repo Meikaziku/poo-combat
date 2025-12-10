@@ -6,9 +6,11 @@ $hero = new Hero(1, "ndsqjidspo");
 
 ?>
 
-<div class="flex flex-col justify-center items-center gap-8 bg-[#CDD3D5] p-8 shadow rounded" >
-    <form method="POST" action="traitement.php"
-        class="w-full max-w-lg bg-white shadow-xl rounded-2xl p-6 space-y-6 ">
+<div class="flex flex-col justify-center items-center gap-2  p-8 rounded">
+    <label class="text-2xl" for="heroName">Nom du hero</label>
+    <input class=" border border-black/30 py-2 px-3" type="text" name="heroName" id="heroName" placeholder="Nom">
+    <form class="flex flex-col " method="POST" action="traitement.php"
+        class="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-6 space-y-6 ">
 
         <!-- Points restants -->
         <div class="text-center text-lg font-semibold">

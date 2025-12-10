@@ -59,7 +59,7 @@ abstract class Character
      * Set the value of attaque
      *
      * @return  self
-     */ 
+     */
     public function setAttaque($attaque)
     {
         $this->attaque = $attaque;
@@ -79,7 +79,7 @@ abstract class Character
      * Set the value of max_hp
      *
      * @return  self
-     */ 
+     */
     public function setMax_hp($max_hp)
     {
         $this->max_hp = $max_hp;
@@ -87,19 +87,19 @@ abstract class Character
         return $this;
     }
 
-     /**
+    /**
      * Get the value of img
-     */ 
+     */
     public function getImg()
     {
         return $this->img;
     }
 
-      /**
+    /**
      * Set the value of img
      *
      * @return  self
-     */ 
+     */
     public function setImg($img)
     {
         $this->img = $img;
@@ -107,31 +107,39 @@ abstract class Character
         return $this;
     }
 
-    public function attaque(Character $ennemie): CombatLog
+    public function attaque(Character $ennemie): int
     {
 
-        $combatLog = new CombatLog();
+        // $combatLog = new CombatLog();
 
-        if (($ennemie->getHp() - $this->attaque) < 0) {
-            $ennemie->setHp(0);
-        } else {
-            $ennemie->setHp($ennemie->getHp() - $this->attaque);
+        $degat = 0;
+
+        if ($this->getHp() > 0) {
+
+
+            if (($ennemie->getHp() - $this->attaque) < 0) {
+                $degat = $this->attaque + ($ennemie->getHp() - $this->attaque);
+                $ennemie->setHp(0);
+                
+            } else {
+                $ennemie->setHp($ennemie->getHp() - $this->attaque);
+                $degat = $this->attaque;
+            }
         }
 
-        $combatLog->setMessage($this->getNom() . " attaque " . $ennemie->getNom() . " et lui inflige " . $this->attaque . " points de dégats. <br>Il reste " . $ennemie->getHp() . " à " . $ennemie->getNom());
+        return $degat;
+        // $combatLog->setMessage($this->getNom() . " attaque " . $ennemie->getNom() . " et lui inflige " . $this->attaque . " points de dégats. <br>Il reste " . $ennemie->getHp() . " à " . $ennemie->getNom());
 
-        if (is_a($this, "Hero")) {
-            $combatLog->setColor("blue");
-        }
+        // if (is_a($this, "Hero")) {
+        //     $combatLog->setColor("blue");
+        // }
 
-        if (is_a($this, "Monstre")) {
-            $combatLog->setColor("red");
-        }
+        // if (is_a($this, "Monstre")) {
+        //     $combatLog->setColor("red");
+        // }
 
 
 
-        return $combatLog;
+        // return $combatLog;
     }
-
-    
 }

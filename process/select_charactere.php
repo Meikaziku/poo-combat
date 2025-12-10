@@ -1,5 +1,7 @@
 <?php
 
+
+
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     header('Location: ../public/perso_selection.php?error=1');
     return;
@@ -36,5 +38,17 @@ $heroRepositiry = new HeroRepository($db);
 $hero = $heroRepositiry->findHeroById($idHero);
 
 $_SESSION['hero'] = $hero;
+
+// Reset donjon progression for this hero (start from first donjon)
+if (isset($_SESSION['currentDonjonId'])) {
+    unset($_SESSION['currentDonjonId']);
+}
+if (isset($_SESSION['monstre'])) {
+    unset($_SESSION['monstre']);
+}
+// reset detailed donjon progress (fight counters)
+if (isset($_SESSION['donjonProgress'])) {
+    unset($_SESSION['donjonProgress']);
+}
 
 header('location: ../process/deroule_fight.php');

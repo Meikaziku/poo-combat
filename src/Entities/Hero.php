@@ -4,7 +4,7 @@ final class Hero extends Character {
 
     private int $id;
 
-    public function __construct(int $id, string $nom, int $hp = 150, int $attaque = 20, int $max_hp = 150, string $img = "") {
+    public function __construct(int $id, string $nom, int $hp = 170, int $attaque = 200, int $max_hp = 160, string $img = "") {
         $this->id = $id;
         parent::__construct($nom, $hp, $attaque, $max_hp, $img);
         

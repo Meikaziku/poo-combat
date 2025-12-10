@@ -8,7 +8,7 @@ if (
     exit;
 }
 
-// Nettoyage
+// Nettoyage et cast
 $heroName = trim($_POST['heroName']);
 $hp = intval($_POST['hp']);
 $attaque = intval($_POST['attaque']);
@@ -25,56 +25,45 @@ if ($hp <= 0 || $attaque <= 0) {
     exit;
 }
 
-
-$hp = htmlspecialchars(trim($_POST['hp']));
-$attaque = htmlspecialchars(trim($_POST['attaque']));
-$heroName = htmlspecialchars(trim($_POST['heroName']));
-
-
-
+// Protection basique des valeurs (surtout pour affichage)
+$hp = htmlspecialchars((string)$hp);
+$attaque = htmlspecialchars((string)$attaque);
+$heroName = htmlspecialchars($heroName);
 
 require_once('../utils/autoloader.php');
 require_once('../utils/db-connect.php');
 
+// Image du personnage : uniquement l'une des images prédéfinies choisies via les radios
+$allowedPresetImages = [
+    'assets/imgs/perso1.gif',
+    'assets/imgs/perso2.gif',
+    'assets/imgs/perso3.gif',
+];
+
+if (isset($_POST['idPerso']) && in_array($_POST['idPerso'], $allowedPresetImages, true)) {
+    $imgPath = $_POST['idPerso'];
+} else {
+    // Aucun choix valide — on refuse la création
+    header('Location: ../public/creation_perso.php?error=6'); // image non sélectionnée ou invalide
+    exit;
+}
+
+// Instancie un Hero avec les valeurs par défaut puis ajuste
 $hero = new Hero(
     1,
-    $heroName,
+    $heroName
 );
 
-
-if (($attaque - $hero->getAttaque()) + ($hp - $hero->getHp()) !== 10) {
+// Vérifie la répartition des points (logique existante)
+if ((intval($attaque) - $hero->getAttaque()) + (intval($hp) - $hero->getHp()) !== 10) {
     header('Location: ../public/creation_perso.php?error=5');
     exit;
 }
 
-
-$imgPath = "";
-
-if (isset($_FILES['selectionPhoto']) && $_FILES['selectionPhoto']['error'] === 0) {
-    $tmpName = $_FILES['selectionPhoto']['tmp_name'];
-    $name = $_FILES['selectionPhoto']['name'];
-
-    $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-    $allowed = ['jpg', 'jpeg', 'png', 'gif'];
-
-    if (!in_array($ext, $allowed)) {
-        header('Location: ../public/creation_perso.php?error=5');
-        exit;
-    }
-
-    $newName = uniqid() . "." . $ext;
-    $imgPath = './upload/' . $newName;
-    move_uploaded_file($tmpName, '../public/upload/' . $newName);
-}
-
-
-$hero->setAttaque($attaque);
-$hero->setHp($hp);
-$hero->setMax_hp($hp);
+$hero->setAttaque((int)$attaque);
+$hero->setHp((int)$hp);
+$hero->setMax_hp((int)$hp);
 $hero->setImg($imgPath);
-
-
-
 
 $heroRepository = new HeroRepository($db);
 $success = $heroRepository->insertHero($hero);

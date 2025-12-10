@@ -18,6 +18,9 @@ spl_autoload_register(function ($className) {
         case substr($className, -6) === 'Mapper':
             $directory = 'Mappers';
             break;
+        case substr($className, -7) === 'Factory':
+            $directory = 'Factories';
+            break;
         case substr($className, -3) === 'Log':
             $directory = 'Logs';
             break;

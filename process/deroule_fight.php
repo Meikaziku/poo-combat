@@ -5,33 +5,32 @@ require_once('../utils/db-connect.php');
 require_once('../utils/is-connected.php');
 
 $hero = $_SESSION['hero'];
-var_dump($hero);
-// debut du combat
-
-if ($hero->getHp() > 0) {
-
-    $fightManager = new FightManager($db);
-    $monstre = $fightManager->fightCreation();
 
 
-    var_dump($monstre);
-
-    $combatLogs = $fightManager->fight($hero, $monstre);
-
-
-    $_SESSION['combatLogs'] = $combatLogs;
-    $_SESSION['monstre'] = $monstre;
-
-    $heroRepo = new HeroRepository($db);
-    $newHeroStats = $heroRepo->saveStats($hero);
-
-    header('location: ../public/fight.php');
-} else {
+if ($hero->getHp() <= 0) {
     header('location: ../public/perso_selection.php');
+    exit;
 }
 
+try {
+    $fightManager = new FightManager($db);
 
-// var_dump($hero);
-// var_dump($monstre);
+    
 
-// var_dump($resultatCombat);
+    // Initialiser le donjon (gère la session currentDonjonId)
+    $donjon = $fightManager->initializeHeroDonjon();
+    if (!$donjon) {
+        throw new Exception("Impossible d'initialiser le donjon");
+    }
+    $_SESSION['donjon'] = $donjon;
+    
+    // Créer le monstre suivant
+    $monstre = $fightManager->fightCreation();
+    
+    $_SESSION['monstre'] = $monstre;
+
+    header('location: ../public/fight.php');
+} catch (Exception $e) {
+    header('location: ../public/fight.php');
+    exit;
+}
