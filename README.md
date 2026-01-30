@@ -49,3 +49,36 @@ Ce projet a été réalisé dans le cadre de ma formation afin de **consolider m
 - Interface immersive
 - Éléments visuels renforçant l’ambiance
 
+## 🚀 Installation du projet Legend Fighter
+
+Suivez ces étapes pour lancer le projet en local :
+
+### 1️⃣ Cloner le projet
+dans le temrinal : 
+```bash
+git clone https://github.com/Meikaziku/poo-combat.git ./
+```
+
+### 2️⃣ Installer Tailwind CSS
+dans le temrinal : 
+```bash
+npm install tailwindcss @tailwindcss/cli
+```
+
+### 3️⃣ Compiler Tailwind en CSS prêt à l’emploi
+dans le temrinal : 
+```bash
+npx tailwindcss -i ./public/assets/styles/style.css -o ./public/assets/styles/output.css --watch
+```
+
+### 4️⃣ Importer la base de données
+Ouvrer le dossier du projet, récupérer le fichier PooCombat.sql dans le dossier bdd à la racine. 
+Creer ensuite une base de données et importez ce fichier.
+
+### 5️⃣ Modifier le fichier /utils/db-connect.php :
+```bash
+$user = 'user';
+$password = 'password';
+$dsn = 'mysql:host=localhost;dbname=social_network';
+```
+Dans le dbname du dsn, entrer le nom de votre base de donnée creer auparavant
