@@ -79,8 +79,9 @@ Creer ensuite une base de données et importer ce fichier.
 ```bash
 $user = 'user';
 $password = 'password';
-$dsn = 'mysql:host=localhost;dbname=social_network';
+$dsn = 'mysql:host=localhost;dbname=pooCombat';
 ```
 Dans le dbname du dsn, entrer le nom de votre base de donnée creer auparavant
+
 
 
