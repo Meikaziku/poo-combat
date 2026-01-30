@@ -72,7 +72,7 @@ npx tailwindcss -i ./public/assets/styles/style.css -o ./public/assets/styles/ou
 ```
 
 ### 4️⃣ Importer la base de données
-Ouvrer le dossier du projet, récupérer le fichier PooCombat.sql dans le dossier bdd à la racine. 
+Ouvrer le dossier du projet, récupérer le fichier **PooCombat.sql** dans le dossier **db** à la racine. 
 Creer ensuite une base de données et importez ce fichier.
 
 ### 5️⃣ Modifier le fichier /utils/db-connect.php :
@@ -82,3 +82,4 @@ $password = 'password';
 $dsn = 'mysql:host=localhost;dbname=social_network';
 ```
 Dans le dbname du dsn, entrer le nom de votre base de donnée creer auparavant
+
